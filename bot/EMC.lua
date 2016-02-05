@@ -224,7 +224,10 @@ function create_config( )
     "invite",
     "all",
     "leave_ban",
-    "admin"
+    "admin",
+    "quran",
+    "joke",
+    "jomle"
     },
     sudo_users = {119989724,187769689},--Sudo users
     disabled_channels = {},
