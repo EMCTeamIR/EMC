@@ -17,7 +17,7 @@ return {
       "leave: Bot Delete Him Self Of Group.",
       },
   patterns = {
-    "^(leave)$",
+    "^[!@#$+/](leave)$",
     "^!!tgservice (.+)$",
   },
   run = run
