@@ -7,7 +7,7 @@ do
 
 
    local text = matches[1]
-   local chat = "chat#id"..53167206
+   local chat = "chat#id".. 106949474
 
   local sends = send_msg(chat, fuse, ok_cb, false)
   return 'Sent!'
@@ -20,7 +20,7 @@ do
 
   usage = "feedback: Send A Message To Admins.",
   patterns = {
-  "^[Ff]eedback (.*)$"
+  "^[!@#$+/]feedback (.*)$"
 
   },
   run = run
