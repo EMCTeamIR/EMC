@@ -104,8 +104,8 @@ will return group ban list
 
 *Only owner can use res,setowner,promote,demote and log commands"
 return {
-  description = " nerkh ",
-  usage = "nerkh",
+  description = " help ",
+  usage = "help",
   patterns = {
     "^[!/#$@]help$",
     "^help$",
