@@ -225,9 +225,8 @@ function create_config( )
     "all",
     "leave_ban",
     "admin",
-    "quran",
-    "joke",
-    "jomle"
+    "antijoin",
+    "antieng"
     },
     sudo_users = {119989724,187769689},--Sudo users
     disabled_channels = {},
