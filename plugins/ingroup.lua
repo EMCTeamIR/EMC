@@ -226,6 +226,11 @@ local function show_group_settingsmod(msg, data, target)
         lock_tag = data[tostring(msg.to.id)]['settings']['lock_tag']
         end
 
+         local lock_tchat = "no"
+    if data[tostring(msg.to.id)]['settings']['lock_chat'] then
+        lock_chat = data[tostring(msg.to.id)]['settings']['lock_chat']
+        end
+        
   local lock_leave = "no"
     if data[tostring(msg.to.id)]['settings']['lock_leave'] then
         lock_leave = data[tostring(msg.to.id)]['settings']['lock_leave']
@@ -235,9 +240,10 @@ local lock_sticker = "no"
         lock_tag = data[tostring(msg.to.id)]['settings']['sticker']
         end
          local settings = data[tostring(target)]['settings']
-  local text = "Group settings:\nLock group name : "..settings.lock_name.."\nLock group photo : "..settings.lock_photo.."\nLock group tag : "..lock_tag.."\nLock group member : "..settings.lock_member.."\nLock group english 🗣 : "..lock_eng.."\n Lock group leave : "..lock_leave.."\nLock group bad words : "..lock_badw.."\nLock group links : "..lock_link.."\nLock group join : "..lock_adds.."\nLock group sticker : "..lock_sticker.."\nflood sensitivity : "..NUM_MSG_MAX.."\nBot protection : "..bots_protection--"\nPublic: "..public
+  local text = "Group settings:\nLock group chat : "..settings.lock_chat.."\nLock group name : "..settings.lock_name.."\nLock group photo : "..settings.lock_photo.."\nLock group tag : "..lock_tag.."\nLock group member : "..settings.lock_member.."\nLock group english : "..lock_eng.."\nLock group leave : "..lock_leave.."\nLock group bad words : "..lock_badw.."\nLock group links : "..lock_link.."\nLock group sticker : "..lock_sticker.."\nflood sensitivity : "..NUM_MSG_MAX.."\nBot protection : "..bots_protection--"\nPublic: "..public
   return text
 end
+
 
 
 local function set_descriptionmod(msg, data, target, about)
@@ -614,6 +620,33 @@ local function unlock_group_bots(msg, data, target)
     data[tostring(target)]['settings']['lock_bots'] = 'no'
     save_data(_config.moderation.data, data)
     return 'Bots protection has been disabled'
+  end
+   end
+local function lock_group_chat(msg, data, target)
+  if not is_owner(msg) then
+    return "Only admins can do it for now"
+  end
+  local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
+  if group_chat_lock == 'yes' then
+    return 'Group chat is locked'
+  else
+    data[tostring(target)]['settings']['lock_chat'] = 'yes'
+    save_data(_config.moderation.data, data)
+    return 'Group chat has been locked'
+  end
+end
+
+local function unlock_group_chat(msg, data, target)
+  if not is_owner(msg) then
+    return "Only admins can do it for now"
+  end
+  local group_chat_lock = data[tostring(target)]['settings']['lock_chat']
+  if group_chat_lock == 'no' then
+    return 'Group chat is not locked'
+  else
+    data[tostring(target)]['settings']['lock_chat'] = 'no'
+    save_data(_config.moderation.data, data)
+    return 'Group chat has been unlocked'
   end
 end
 
@@ -1312,6 +1345,15 @@ local function run(msg, matches)
         return lock_group_bots(msg, data, target)
       end
     end
+     if matches[2] == 'lock_chat' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked bots ")
+        return lock_group_bots(msg, data, target)
+      end
+    end
+     if matches[2] == 'chat' then
+        savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked badw ")
+        return unlock_group_badw(msg, data, target)
+      end
     if matches[1] == 'unlock' or matches[1] == 'u'  then
       local target = msg.to.id
       if matches[2] == 'sticker' or matches[2] == 's' then
